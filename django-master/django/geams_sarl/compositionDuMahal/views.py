@@ -1,10 +1,15 @@
-from django.shortcuts import render, HttpResponse
-from compositionDuMahal.models import Produit, Categorie, Contact, Reservation
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404
+from compositionDuMahal.models import Produit, Contact, Reservation
 
 
 def index(request):
-    message = "Bienvenu sur notre site"
-    return HttpResponse(message)
+    #produit = Produit.objects.filter(available=True).order_by('-created_at')[:12]
 
-def all_ourrs_propositions(request):
-    return HttpResponse("Veillez trouver toutes les nouvelles annonces")
+    return render(request, 'compositionDuMahal/index.html', {'index': index})
+
+def detail(request):
+    return render(request, 'compositionDuMahal/detail.html', {'detail': detail})
+
+def search(request):
+    return render(request, 'compositionDuMahal/search.html', {'search': search})

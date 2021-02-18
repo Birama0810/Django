@@ -4,6 +4,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('r^$', views.index),
-    path('r^proposition', views.all_ourrs_propositions)
+    path('r^$', views.index, name='index'),
+    path('r^detail/$', views.detail, name='detail'),
+    path('r^search/$', views.search, name='search'),
 ]

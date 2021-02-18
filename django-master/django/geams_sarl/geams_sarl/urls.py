@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
 from compositionDuMahal import views
 
 """urlpatterns = [
@@ -23,9 +24,13 @@ from compositionDuMahal import views
 ]"""
 
 urlpatterns = [
+    #path(r'^$', views.index),
     path(r'^admin/', admin.site.urls),
     path(r'^mahal/', include('compositionDuMahal.urls'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 if settings.DEBUG:
     import debug_toolbar
