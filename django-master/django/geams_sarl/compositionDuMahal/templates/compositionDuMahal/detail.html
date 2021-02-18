@@ -1,1 +1,8 @@
-<h1>Coucou</h1>
+<h1>Liste des articles</h1>
+{% for detail in details %}
+<h2>{{ detail.nom }}</h2>
+Description : {{ detail.description|linebreaks }}<br/>
+Caracteristique : {{ detail.caracteristic|linebreaks }}<br/>
+Etat : {{ detail.etat|linebreaks }}<br/>
+<img src="{{ detail.image.url }}"/>
+{% endfor %}

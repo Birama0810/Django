@@ -9,7 +9,7 @@ def index(request):
     return render(request, 'compositionDuMahal/index.html', {'index': index})
 
 def detail(request):
-    return render(request, 'compositionDuMahal/detail.html', {'detail': detail})
+    return render(request, 'compositionDuMahal/detail.html', {'details': Produit.objects.all()})
 
 def search(request):
     return render(request, 'compositionDuMahal/search.html', {'search': search})
