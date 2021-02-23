@@ -1,0 +1,44 @@
+<div class="col-lg-12">
+    <hr>
+    <h2 class="intro-text text-center">{{ detail.nom }}
+    </h2>
+    <hr class="detail-separator">
+</div>
+
+{% include 'compositionDuMahal/search_form.html' %}
+
+{% if details|length_is:"0" %}
+    <div class="text-center">
+      Palsambleu ! Nous n'avons trouvé aucun résultat à cette requête. Même pas de quoi se ronger la chique !
+      Partez de nouveau à l'abordage !
+    </div>
+
+{% else %}
+    {% for detail in details %}
+        <div class="col-sm-4 text-center">
+            <a href="{% url 'compositionDuMahal:detail' detail_id=detail.id %}">
+              <img class="img-responsive" src="{{ detail.image }}" alt="{{ detail.nom }}">
+            </a>
+            <h3><a href="{% url 'compositionDuMahal:detail' detail_id=detail.id %}">{{ detail.nom }}</a></h3>
+            {% for detail in details %}
+                <p>{{ detail.nom }}</p>
+            {% endfor %}
+        </div>
+        {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+    {% endfor %}
+
+{% endif %}
+
+{% if paginate %}
+  <div class="clearfix"></div>
+  <nav aria-label="">
+    <ul class="pager">
+      {% if details.has_previous %}
+          <li><a href="?page={{ details.previous_page_number }}">Précédent</a></li>
+      {% endif %}
+      {% if details.has_next %}
+          <li><a href="?page={{ details.next_page_number }}">Suivant</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}

@@ -1,1 +1,7 @@
-<h1> Couocu</h1>
+{% extends 'compositionDuMahal/base.html' %}
+
+{% block content %}
+
+    {% include 'compositionDuMahal/list.html' with list_title=title %}
+
+{% endblock %}

@@ -8,8 +8,16 @@ def index(request):
 
     return render(request, 'compositionDuMahal/index.html', {'index': index})
 
-def detail(request):
+def detail(request, id):
+
     return render(request, 'compositionDuMahal/detail.html', {'details': Produit.objects.all()})
+
+def listing(request):
+    context = {
+        'produit': Produit,
+        'paginate': True
+    }
+    return render(request, 'compositionDuMahal/listing.html', context)
 
 def search(request):
     return render(request, 'compositionDuMahal/search.html', {'search': search})
