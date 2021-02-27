@@ -16,13 +16,10 @@
 {% else %}
     {% for detail in details %}
         <div class="col-sm-4 text-center">
-            <a href="{% url 'compositionDuMahal:detail' detail_id=detail.id %}">
-              <img class="img-responsive" src="{{ detail.image }}" alt="{{ detail.nom }}">
+            <a href="{% url 'compositionDuMahal:detail'  %}">
+              <img class="img-responsive" src="{{ detail.image.url}}" alt="{{ detail.nom }}">
             </a>
-            <h3><a href="{% url 'compositionDuMahal:detail' detail_id=detail.id %}">{{ detail.nom }}</a></h3>
-            {% for detail in details %}
-                <p>{{ detail.nom }}</p>
-            {% endfor %}
+            <h3><a href="{% url 'compositionDuMahal:detail'  %}">{{ detail.nom }}</a></h3>
         </div>
         {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
     {% endfor %}

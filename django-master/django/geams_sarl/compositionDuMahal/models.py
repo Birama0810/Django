@@ -43,3 +43,16 @@ class Reservation(models.Model):
 
     def __str__(self):
         return self.contact.nom
+
+class Presentation(models.Model):
+    id = models.BigIntegerField(unique=True, primary_key=True)
+    nom = models.CharField(max_length=100)
+    fonction = models.CharField(max_length=100)
+    metier = models.CharField(max_length=100, default="")
+    image = models.FileField(upload_to="images/", default = None)
+
+    class Meta:
+        verbose_name = "contact"
+
+    def __str__(self):
+        return self.nom
