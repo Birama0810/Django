@@ -17,12 +17,12 @@ def detail(request):
     return render(request, 'compositionDuMahal/detail.html', {'details':details})
 
 def listing(request):
-    details = Produit.objects.filter(nom=True)
+    details = Produit.objects.all()
     context = {
         'produit': Produit,
         'paginate': True
     }
-    return render(request, 'compositionDuMahal/listing.html', context)
+    return render(request, 'compositionDuMahal/listing.html', {'details':details})
 
 def search(request):
     query = request.GET.get('query')

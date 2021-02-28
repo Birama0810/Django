@@ -43,13 +43,19 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
-          <a href="{% url 'compositionDuMahal:presentation' %}">Presentation de la société</a>
+          <a href="{% url 'compositionDuMahal:presentation' %}">Accueil </a>
         </li>
         <li>
-          <a href="{% url 'compositionDuMahal:listing' %}">Tous les propositions</a>
+          <a href="{% url 'compositionDuMahal:presentation' %}">Qui nous sommes </a>
         </li>
         <li>
-          <a href="{/}">Contactez nous </a>
+          <a href="{% url 'compositionDuMahal:listing' %}">Les propositions</a>
+        </li>
+        <li>
+          <a href="{/}">Reservez </a>
+        </li>
+        <li>
+          <a href="{/}">Contact </a>
         </li>
       </ul>
     </div>
