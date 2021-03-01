@@ -19,13 +19,13 @@
   <h2 class="text-center ">Réserver {{ detail.nom }}</h2>
   <p style="margin-bottom: 20px;">Demandez-nous de mettre de côté {{ detail.nom }} et nous vous contacterons ! </p>
 
-  <form class="form-inline" action="/" method="post">
-
-    <div class="form-group">
+  <form class="form-inline" action="{% url 'compositionDuMahal:detail' %}}" method="post">
+  {% csrf_token %}
+    <div class="form-group {% if form.nom.errors %}has-warning has-feedback{% endif %}">
       <label for="name" class="control-label">Nom</label>
       <input type="text" name="name" value="" id="name">
     </div>
-    <div class="form-group">
+    <div class="form-group {% if form.email.errors %}has-warning has-feedback{% endif %}">
       <label for="email" class="control-label">E-mail</label>
       <input type="text" name="email" value="" id="email">
     </div>
@@ -33,6 +33,15 @@
 
     <button type="submit" class="btn btn-success">Réserver</button>
   </form>
+  {% if errors %}
+  <div>
+    {% for key, error in errors %}
+    {% autoescape off %}
+    {{error}}
+    {% endautoescape %}
+    {% endfor %}
+  </div>
+  {% endif %}
 
 </div>
 

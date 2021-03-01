@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from compositionDuMahal.models import Produit, Contact, Reservation, Presentation
 from django.core.paginator import Paginator
+from .forms import ContactForm
 
 
 def index(request):
@@ -14,7 +15,43 @@ def detail(request):
         details = Produit.objects.all()
     except Produit.DoesNotExist:
         raise Http404
-    return render(request, 'compositionDuMahal/detail.html', {'details':details})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            nom = form.cleaned_data['nom']
+
+            contact = Contact.objects.filter(email=email)
+            if not contact.exists():
+                # si le contact n'est pas enregistré, créer un nouveau
+                contact = Contact.objects.create(
+                email = email,
+                nom = nom
+                )
+            else:
+                contact = Contact.first()
+
+            detail = get_object_or_404(Produit)
+            reservation = Reservation.objects.create(
+                contact = contact,
+                 detail = detail
+             )
+
+            detail.available = False
+            detail.save()
+            context = {
+                'details': details
+            }
+            return render(request, 'compositionDuMahal/merci.html', context)
+        else:
+            #form = ContactForm()
+            context['errors'] = form.errors.items()
+    else:
+        form = ContactForm()
+    sage = {
+        'form': form
+    }
+    return render(request, 'compositionDuMahal/detail.html', sage)
 
 def listing(request):
     details = Produit.objects.all()
