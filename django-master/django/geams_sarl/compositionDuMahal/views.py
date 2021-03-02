@@ -7,7 +7,8 @@ from django.db import transaction, IntegrityError
 
 
 def index(request):
-    produit = Produit.objects.filter(nom=True).order_by('date')[:12]
+    #produit = Produit.objects.filter(nom=True).order_by('date')[:12]
+    produit = Produit.objects.all()
     context = {
         'produit': produit
     }

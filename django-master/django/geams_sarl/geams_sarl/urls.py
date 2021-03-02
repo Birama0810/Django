@@ -24,7 +24,7 @@ from compositionDuMahal import views
 ]"""
 
 urlpatterns = [
-    #path(r'^$', views.index),
+    path(r'^$', views.index, name='index'),
     path(r'^admin/', admin.site.urls),
     path(r'^mahal/', include(('compositionDuMahal.urls', 'compositionDuMahal')))
 ]
