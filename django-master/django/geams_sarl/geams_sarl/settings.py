@@ -84,6 +84,7 @@ WSGI_APPLICATION = 'geams_sarl.wsgi.application'
 
 DATABASES = {
     'default': {
+            'ATOMIC_REQUESTS': True,
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'mahal',
              'USER': 'root',

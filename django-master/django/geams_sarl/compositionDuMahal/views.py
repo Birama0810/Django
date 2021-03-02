@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from compositionDuMahal.models import Produit, Contact, Reservation, Presentation
 from django.core.paginator import Paginator
 from .forms import ContactForm
+from django.db import transaction, IntegrityError
 
 
 def index(request):
@@ -23,31 +24,35 @@ def detail(request):
             email = form.cleaned_data['email']
             nom = form.cleaned_data['nom']
 
-            contact = Contact.objects.filter(email=email)
-            if not contact.exists():
-                # si le contact n'est pas enregistré, créer un nouveau
-                contact = Contact.objects.create(
-                email = email,
-                nom = nom
-                )
-            else:
-                contact = Contact.first()
+            try:
+                with transaction.atomic():
+                    contact = Contact.objects.filter(email=email)
+                    if not contact.exists():
+                    # si le contact n'est pas enregistré, créer un nouveau
+                        contact = Contact.objects.create(
+                        email = email,
+                        nom = nom
+                        )
+                    else:
+                        contact = Contact.first()
 
-            detail = get_object_or_404(Produit)
-            reservation = Reservation.objects.create(
-                contact = contact,
-                 detail = detail
-             )
+                    detail = get_object_or_404(Produit)
+                    reservation = Reservation.objects.create(
+                        contact = contact,
+                         detail = detail
+                     )
 
-            detail.available = False
-            detail.save()
-            context = {
-                'details': details
-            }
-            return render(request, 'compositionDuMahal/merci.html', context)
-        else:
+                    detail.available = False
+                    detail.save()
+                    context = {
+                        'details': details
+                    }
+                    return render(request, 'compositionDuMahal/merci.html', context)
+            except IntegrityError:
+                form.errors['internal'] = "Une erreur interne est apparue. Merci de recommencer votre requete."
+        #else:
             #form = ContactForm()
-            context['errors'] = form.errors.items()
+        #    context['errors'] = form.errors.items()
     else:
         form = ContactForm()
     sage = {
