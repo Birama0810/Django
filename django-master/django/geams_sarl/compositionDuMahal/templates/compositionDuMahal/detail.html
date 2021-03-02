@@ -11,14 +11,14 @@
 </div>
 {% endfor %}
 <div class="col-md-6">
+  {% for detail in details %}
   <div style="margin-bottom:45px">
     <h2 class="text-center ">Articles</h2>
     <p>{{ detail.description }}</p>
   </div>
-
+  {% endfor %}
   <h2 class="text-center ">Réserver {{ detail.nom }}</h2>
   <p style="margin-bottom: 20px;">Demandez-nous de mettre de côté {{ detail.nom }} et nous vous contacterons ! </p>
-
   <form class="form-inline" action="{% url 'compositionDuMahal:detail' %}}" method="post">
   {% csrf_token %}
     <div class="form-group {% if form.nom.errors %}has-warning has-feedback{% endif %}">

@@ -6,9 +6,11 @@ from .forms import ContactForm
 
 
 def index(request):
-    #produit = Produit.objects.filter(available=True).order_by('-created_at')[:12]
-
-    return render(request, 'compositionDuMahal/index.html', {'index': index})
+    produit = Produit.objects.filter(nom=True).order_by('date')[:12]
+    context = {
+        'produit': produit
+    }
+    return render(request, 'compositionDuMahal/index.html', context)
 
 def detail(request):
     try:
@@ -16,7 +18,7 @@ def detail(request):
     except Produit.DoesNotExist:
         raise Http404
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, error_class=ParagraphErrorList)
         if form.is_valid():
             email = form.cleaned_data['email']
             nom = form.cleaned_data['nom']
