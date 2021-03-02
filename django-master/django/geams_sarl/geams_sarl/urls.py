@@ -26,7 +26,7 @@ from compositionDuMahal import views
 urlpatterns = [
     path(r'^$', views.index, name='index'),
     path(r'^admin/', admin.site.urls),
-    path(r'^mahal/', include(('compositionDuMahal.urls', 'compositionDuMahal')))
+    path(r'^mahal/', include('compositionDuMahal.urls', name='compositionDuMahal'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
