@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 from pathlib import Path
 import os.path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,9 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-38y&ynar#*+(&49jw&=evvik@jz4b@9aiyl_fd&d4k8b0uzeb('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV') == 'PRODUCTION':
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-38y&ynar#*+(&49jw&=evvik@jz4b@9aiyl_fd&d4k8b0uzeb(')
+ALLOWED_HOSTS = ['geams_sarl.herokuapp.com']
 
 
 # Application definition
@@ -48,6 +57,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # A ajouter
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
