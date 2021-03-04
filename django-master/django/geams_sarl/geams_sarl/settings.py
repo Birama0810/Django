@@ -15,8 +15,8 @@ import os.path
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-38y&ynar#*+(&49jw&=evvik@jz4b@9aiyl_fd&d4k8b0uzeb('
+# 'UvnQ!\r~5,Re\x0bNp]`8,'kBqr-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('ENV') == 'PRODUCTION':
@@ -37,7 +38,7 @@ else:
 
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-38y&ynar#*+(&49jw&=evvik@jz4b@9aiyl_fd&d4k8b0uzeb(')
-ALLOWED_HOSTS = ['geams_sarl.herokuapp.com']
+ALLOWED_HOSTS = ['geams.herokuapp.com']
 
 
 # Application definition
